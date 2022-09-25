@@ -1,0 +1,19 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Models\Dummy_Model;
+
+
+class DummyClass extends BaseRepository
+{
+    protected $filter = null ;
+
+    /**
+     *  Return the model
+     */
+    public function model() :string
+    {
+        return Dummy_Model::class;
+    }
+}
