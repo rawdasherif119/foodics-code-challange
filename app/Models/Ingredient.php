@@ -23,4 +23,16 @@ class Ingredient extends Model
         return $this->belongsToMany(Product::class, 'product_ingredient', 'ingredient_id', 'product_id')
             ->withPivot('amount');
     }
+
+    /**----------------------------------------------------------------------- */
+
+    public function isInHalfOrBelowLevel()
+    {
+        return $this->current_amount <= ($this->max_amount * 0.5);
+    }
+
+    public function updateAlertEmailSent($boolean)
+    {
+        return $this->update(['alert_email_sent' => $boolean]);
+    }
 }
