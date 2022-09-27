@@ -4,6 +4,8 @@
 
 After Installing, take a copy for .env.example to .env and fill out the system database connection
 
+(Note please configure queue configuration in you project to send email, beacuse mail use (ShouldQueue))
+
 1 -
 ```sh
 composer install
