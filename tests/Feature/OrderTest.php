@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\Ingredient;
 use Illuminate\Http\Response;
 use Tests\Traits\Authentication;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\IngredientReachedBelowItsHalflevel;
 
 class OrderTest extends TestCase
 {
@@ -152,5 +154,46 @@ class OrderTest extends TestCase
             ]
         ];
         $this->post($this->orderPath, $data)->assertUnauthorized();
+    }
+
+    /**
+     * @test
+     */
+    public function send_email_if_any_ingredient_reach_its_half_level_or_below()
+    {
+        $user = $this->signInAsCustomer();
+        $product = Product::first();
+        $ingredient = $product->ingredients->first();
+        $ingredient2 = $product->ingredients->skip(1)->first();
+        $ingredient->update(['current_amount' => $ingredient->current_amount * 0.5]);
+        $data = [
+            'products' => [
+                [
+                    'product_id' => $product->id,
+                    'quantity' => rand(1, 5)
+                ]
+            ]
+        ];
+
+        $this->post($this->orderPath, $data)->assertOk();
+        /** Order has been added*/
+        $this->assertDatabaseHas('orders', ['user_id' => $user->id])->assertEquals(1, Order::count());
+        $this->assertDatabaseCount('order_product', sizeof($data['products']));
+        /******************************** */
+
+        $order = Order::first();
+        foreach ($data['products'] as $product) {
+            $this->assertDatabaseHas('order_product', array_merge($product, ['order_id'    => $order->id]));
+        }
+
+        Mail::fake();
+        Mail::to(['merchant1@email.com', 'merchant2@gmail'])
+            ->send(new IngredientReachedBelowItsHalflevel($ingredient));
+        Mail::assertSent(IngredientReachedBelowItsHalflevel::class);
+
+        $this->assertDatabaseHas('ingredients', [
+            'id' => $ingredient->id,
+            'alert_email_sent' => true
+        ]);
     }
 }
