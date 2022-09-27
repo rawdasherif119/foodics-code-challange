@@ -26,6 +26,8 @@ interface BaseRepositoryInterface
 
     public function createRelations($model, $data);
 
+    public function updateRelations($model, $data);
+
     public function updateOrCreate($attr, $value);
 
     public function createMultiple(array $data);
@@ -69,4 +71,6 @@ interface BaseRepositoryInterface
     public function whereNotIn($attribute, array $values);
 
     public function where($attribute, $value);
+
+    public function updateSpecificHasManyRelation($data, $relation, $model);
 }

@@ -359,9 +359,38 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
         $model->fill($data)->save();
 
-        $this->createOrUpdateOnetoOneRelations($model, $data);
+        $this->updateRelations($model, $data);
 
         return $model;
+    }
+
+    /**
+     * @param array $data
+     * @return Model
+     */
+    public function updateRelations($model, $data)
+    {
+        $this->createOrUpdateOnetoOneRelations($model, $data);
+        $this->updateOnetoManyRelations($model, $data);
+        $this->updateManytoManyRelations($model, $data);
+    }
+
+    /**
+     * @param Model $model
+     * @param array $data
+     */
+    protected function updateOnetoManyRelations($model, $data)
+    {
+        //
+    }
+
+    /**
+     * @param Model $model
+     * @param array $data
+     */
+    protected function updateManytoManyRelations($model, $data)
+    {
+        //
     }
 
     /**
@@ -479,7 +508,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * @param string $relation
+     * @param object $relation
      * @param int $perPage
      * @param array $columns
      * @param string $orderBy

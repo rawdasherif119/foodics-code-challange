@@ -222,11 +222,4 @@ class BaseService
     {
         return $this->repo->updateSpecificHasManyRelation($data, $relation, $model);
     }
-
-    public function destroyFile($path, $id)
-    {
-        $this->deleteFile($path);
-        $this->repo->forceDelete($id);
-
-    }
 }
