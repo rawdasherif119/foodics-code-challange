@@ -18,4 +18,14 @@ return [
     | below for any key matching the given error code for the response.
     |
      */
+
+    'unauthenticated'           => 'Unauthenticated.',
+    'unauthorized'              => 'You are not authorized for this request.',
+    'page_not_found'            => 'The requested page does not exist.',
+    'relation_not_found'        => 'The requested relation does not exist.',
+    'validation_failed'         => 'The given data failed to pass validation.',
+    'method_not_allowed'        => 'Method not allowed',
+    'route_not_found'           => 'Route not found',
+    'model_not_found'           => 'Model not found',
+    'not_enough_ingredient'     => 'There is not enough :ingredient'
 ];

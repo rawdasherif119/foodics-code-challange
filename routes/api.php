@@ -19,3 +19,6 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', 'AuthController@login')->name('api.login');
 });
 
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('/orders', 'OrderController@store');
+});

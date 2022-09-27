@@ -13,6 +13,11 @@ class Order extends Model
 
     protected $fillable = ['status'];
 
+
+    public function getIngredientsAttribute(){
+        return $this->products->pluck('ingredients')->collapse();
+     }
+
     /**
      *--------------------------------------------------------------------------
      * Model Relations

@@ -18,7 +18,9 @@ class IngredientsSeeder extends Seeder
         $ingredients = [
             ['name' => 'Beef', 'max_amount'   => 20000, 'current_amount' => 20000],
             ['name' => 'Cheese', 'max_amount' => 5000, 'current_amount'  => 5000],
-            ['name' => 'Onion', 'max_amount'  => 1000, 'current_amount'  => 1000]
+            ['name' => 'Onion', 'max_amount'  => 1000, 'current_amount'  => 1000],
+
+            ['name' => 'Chicken', 'max_amount'   => 10000, 'current_amount' => 10000],
         ];
 
         foreach ($ingredients as $ingredient)
