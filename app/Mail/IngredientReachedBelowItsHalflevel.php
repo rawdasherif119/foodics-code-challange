@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class IngredientReachedBelowItsHalflevel extends Mailable implements ShouldQueue
+class IngredientReachedBelowItsHalflevel extends Mailable 
 {
     use Queueable, SerializesModels;
 
